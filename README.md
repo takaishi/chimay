@@ -21,10 +21,28 @@ Chimay::Base.define do
 end
 ```
 
+### input from stdin
+
 ```
-$ chimay /path/to/script.rb
+$ cat /path/to/script.rb | chimay
 Chimay is peres trappistes!
-````
+```
+
+### input from S3
+
+Aws access key and aws secret access key are read from ~/.aws/credentials. If environment AWS\_ACCESS\_KEY or AWS\_SECRET\_ACCESS\_KEY exist, use it instead of credentials.
+
+```
+$ echo s3://example.com/script.rb | chimay
+Chimay is peres trappistes!
+```
+
+### input from HTTP
+
+```
+$ echo http://example.com/script.rb | chimay
+Chimay is peres trappistes!
+```
 
 ## Install
 
