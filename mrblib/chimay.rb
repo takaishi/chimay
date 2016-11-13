@@ -16,14 +16,15 @@ def __main__(argv)
     aws.set_bucket(AWSBucket)
     resp = aws.download(m[2])
     if resp.code.to_i == 200
-      eval resp.body
+      define = eval resp.body
+      define.run
     else
       puts "Error code = #{resp.code}"
       puts "Error body = #{resp.body}"
     end
   else
     file = File.open(argv[1])
-    eval file.read
+    eval(file.read, nil, __FILE__, __LINE__)
   end
 end
 
