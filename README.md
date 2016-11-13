@@ -13,8 +13,17 @@ run mruby script via s3, consul kvs like stretcher.
 
 ## Usage
 
+```ruby
+Chimay::Base.define do
+  run do
+    puts 'Chimay is peres trappistes!'
+  end
+end
 ```
-$ chimay /path/to/script.mrb
+
+```
+$ chimay /path/to/script.rb
+Chimay is peres trappistes!
 ````
 
 ## Install
