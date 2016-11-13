@@ -14,4 +14,5 @@ MRuby::Gem::Specification.new('chimay') do |spec|
   spec.add_dependency 'mruby-aws-s3',      :mgem => 'mruby-aws-s3'
   spec.add_dependency 'mruby-polarssl',    :mgem => 'mruby-polarssl'
   spec.add_dependency 'mruby-env',         :mgem => 'mruby-env'
+  spec.add_dependency 'mruby-base64',      :mgem => 'mruby-base64'
 end
