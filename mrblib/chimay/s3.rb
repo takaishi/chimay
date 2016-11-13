@@ -25,23 +25,21 @@ class S3
     private
 
     def aws_access_key_id
-      if ENV['AWS_ACCESS_KEY_ID']
-         ENV['AWS_ACCESS_KEY_ID']
-      else
-        cred = File.open("#{ENV['HOME']}/.aws/credentials").read
-        m = OnigRegexp.new('aws_access_key_id\s?=\s?(.*)').match(cred)
-        m[1]
-      end
+      return ENV['AWS_ACCESS_KEY_ID'] if ENV['AWS_ACCESS_KEY_ID']
+
+      read_credential('aws_access_key_id')
     end
     
     def aws_secret_access_key
-      if ENV['AWS_SECRET_ACCESS_KEY']
-        ENV['AWS_SECRET_ACCESS_KEY']
-      else
-        cred = File.open("#{ENV['HOME']}/.aws/credentials").read
-        m = OnigRegexp.new('aws_secret_access_key\s?=\s?(.*)').match(cred)
-        m[1]
-      end
+      return ENV['AWS_SECRET_ACCESS_KEY'] if ENV['AWS_SECRET_ACCESS_KEY']
+
+      read_credential('aws_secret_access_key')
+    end
+
+    def read_credential(key)
+      cred = File.open("#{ENV['HOME']}/.aws/credentials").read
+      m = OnigRegexp.new("#{key}\s?=\s?(.*)").match(cred)
+      m[1]
     end
   end
 end
