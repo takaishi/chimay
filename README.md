@@ -3,14 +3,6 @@ Chimay
 
 run mruby script via s3, consul kvs like stretcher.
 
-## Description
-
-## Demo
-
-## VS. 
-
-## Requirement
-
 ## Usage
 
 ```ruby
@@ -21,26 +13,19 @@ Chimay::Base.define do
 end
 ```
 
-### input from stdin
-
-```
-$ cat /path/to/script.rb | chimay
-Chimay is peres trappistes!
-```
-
-### input from S3
-
-Aws access key and aws secret access key are read from ~/.aws/credentials. If environment AWS\_ACCESS\_KEY or AWS\_SECRET\_ACCESS\_KEY exist, use it instead of credentials.
+### command
 
 ```
 $ echo s3://example.com/script.rb | chimay
 Chimay is peres trappistes!
 ```
 
-### input from HTTP
+### consul
+
+Aws access key and aws secret access key are read from ~/.aws/credentials. If environment AWS\_ACCESS\_KEY or AWS\_SECRET\_ACCESS\_KEY exist, use it instead of credentials.
 
 ```
-$ echo http://example.com/script.rb | chimay
+$ consul event -name run_script s3://example.com/script.rb
 Chimay is peres trappistes!
 ```
 
