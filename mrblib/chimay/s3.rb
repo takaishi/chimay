@@ -3,23 +3,19 @@ class S3
     def run(uri)
       m = OnigRegexp.new("s3://([^/]+[-a-zA-Z0-9]+)(/[^/]+[-a-zA-Z0-9./]+)").match(uri)
 
-      AWSAccessKeyId = aws_access_key_id
-      AWSSecretAccessKey = aws_secret_access_key
+       AWSAccessKeyId = aws_access_key_id
+       AWSSecretAccessKey = aws_secret_access_key
       AWSBucket = m[1]
 
       aws = AWS::S3.new(AWSAccessKeyId, AWSSecretAccessKey)
       aws.set_bucket(AWSBucket)
       resp = aws.download(m[2])
       if resp.code.to_i == 200
-        define = eval resp.body
-        define.run
+        eval resp.body
       else
         puts "Error code = #{resp.code}"
         puts "Error body = #{resp.body}"
       end
-    else
-      file = File.open(argv[1])
-      eval(file.read, nil, __FILE__, __LINE__)
     end 
     
     private

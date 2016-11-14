@@ -1,19 +1,24 @@
 class CLI
   def run(argv)
-    if argv[1] == "version"
-      puts "v#{Chimay::VERSION}"
-    else
-      parsed = parse_stdin(STDIN.read)
-
-      case parsed[:type]
-      when :http
-        Http.run(parsed[:payload])
-      when :s3
-        S3.run(parsed[:payload])
-      when :file
-        File.run(parsed[:payload])
+    begin
+      if argv[1] == "version"
+        puts "v#{Chimay::VERSION}"
       else
+        p parsed = parse_stdin(STDIN.read)
+
+        case parsed[:type]
+        when :http
+          Http.run(parsed[:payload])
+        when :s3
+          S3.run(parsed[:payload])
+        when :file
+          File.run(parsed[:payload])
+        else
+        end
       end
+    rescue => e
+      puts e
+      puts e.backtrace
     end
   end
 
@@ -27,7 +32,7 @@ class CLI
 
     if http?(payload)
       {:type => :http, :payload => payload}
-    elsif s3(payload)
+    elsif s3?(payload)
       {:type => :s3, :payload => payload}
     elsif file?(payload)
       {:type => :file, :payload => payload}

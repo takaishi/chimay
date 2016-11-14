@@ -7,7 +7,7 @@ Chimay had an influence from stretcher.
 ## Usage
 
 ```ruby
-Chimay::Base.define do
+Chimay::Script.define do
   run do
     puts 'Chimay is peres trappistes!'
   end

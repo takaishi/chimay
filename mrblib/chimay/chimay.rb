@@ -1,5 +1,5 @@
 module Chimay
-  class Base
+  class Script
     class << self
       def define(&block)
         new.instance_eval(&block)
