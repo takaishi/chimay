@@ -1,7 +1,7 @@
 Chimay
 ====
 
-MRuby script runner that get S3, http(s), or file with consul event.
+This is mruby script runner that get S3, http(s), or file with consul event.
 Chimay had an influence from stretcher.
 
 ## Usage
@@ -23,7 +23,7 @@ Chimay is peres trappistes!
 
 ### consul
 
-Aws access key and aws secret access key are read from ~/.aws/credentials. If environment AWS\_ACCESS\_KEY or AWS\_SECRET\_ACCESS\_KEY exist, use it instead of credentials.
+Aws access key and aws secret access key are read from ~/.aws/credentials. If environment AWS\_ACCESS\_KEY\_ID or AWS\_SECRET\_ACCESS\_KEY exist, use it instead of credentials.
 
 ```
 $ consul event -name run_script s3://example.com/script.rb
