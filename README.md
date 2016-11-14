@@ -1,7 +1,8 @@
 Chimay
 ====
 
-run mruby script via s3, consul kvs like stretcher.
+MRuby script runner that get S3, http(s), or file with consul event.
+Chimay had an influence from stretcher.
 
 ## Usage
 
