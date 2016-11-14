@@ -5,11 +5,12 @@ class CLI
     else
       parsed = parse_stdin(STDIN.read)
 
-      if parsed[:type] == :http
+      case parsed[:type]
+      when :http
         Http.run(parsed[:payload])
-      elsif parsed[:type] == :s3
+      when :s3
         S3.run(parsed[:payload])
-      elsif parsed[:type] == :file
+      when :file
         File.run(parsed[:payload])
       else
       end
@@ -17,24 +18,36 @@ class CLI
   end
 
   def parse_stdin(input)
-    if input =~ Regexp.compile("^https?://[^/]+[-a-zA-Z0-9./]+")
-      {:type => :http, :payload => input}
-    elsif input =~ Regexp.compile("^s3://[^/]+[-a-zA-Z0-9./]+")
-      {:type => :s3, :payload => input}
-    elsif input =~ Regexp.compile("^file://[^/]+[-a-zA-Z0-9./]+")
-      {:type => :file, :payload => input}
-    else
-      command = JSON::parse(input)[0]
-      payload =  Base64::decode(command['Payload'])
-      if payload =~ Regexp.compile("^https?://[^/]+[-a-zA-Z0-9./]+")
-        {:type => :http, :payload => payload}
-      elsif payload =~ Regexp.compile("^s3://[^/]+[-a-zA-Z0-9./]+")
-        {:type => :s3, :payload => payload}
-      elsif input =~ Regexp.compile("^file://[^/]+[-a-zA-Z0-9./]+")
-        {:type => :file, :payload => input}
-      else
-      end
+    payload = if consul_event?(input)
+                command = JSON::parse(input)[0]
+                Base64::decode(command['Payload'])
+              else
+                input
+              end
+
+    if http?(payload)
+      {:type => :http, :payload => payload}
+    elsif s3(payload)
+      {:type => :s3, :payload => payload}
+    elsif file?(payload)
+      {:type => :file, :payload => payload}
     end
+  end
+
+  def http?(s)
+    s =~ Regexp.compile("^https?://[^/]+[-a-zA-Z0-9./]+")
+  end
+
+  def s3?(s)
+    s =~ Regexp.compile("^s3://[^/]+[-a-zA-Z0-9./]+")
+  end
+
+  def file?(s)
+    s =~ Regexp.compile("^file://[^/]+[-a-zA-Z0-9./]+")
+  end
+
+  def consul_event?(s)
+    s =~ Regexp.compile("^\\[{.*")
   end
 end
 
