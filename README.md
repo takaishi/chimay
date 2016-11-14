@@ -1,7 +1,7 @@
 Chimay
 ====
 
-This is mruby script runner that get S3, http(s), or file with consul event.
+This is mruby script runner that get script from S3, http(s), or file with consul event.
 Chimay had an influence from stretcher.
 
 ## Usage
@@ -30,15 +30,11 @@ $ consul event -name run_script s3://example.com/script.rb
 Chimay is peres trappistes!
 ```
 
-## Install
-
-## Contribution
-
 ## Licence
 
 [MIT](https://github.com/takaishi/tool/blob/master/LICENCE)
 
 ## Author
 
-[takaishi](https://github.com/takaishi)
+[r_takaishi](https://github.com/takaishi)
 
