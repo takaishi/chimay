@@ -1,8 +1,9 @@
 MRuby::Gem::Specification.new('chimay') do |spec|
-  spec.license = 'MIT'
-  spec.author  = 'Takaishi Ryo'
-  spec.summary = 'chimay'
-  spec.bins    = ['chimay']
+  spec.license  = 'MIT'
+  spec.author   = 'Takaishi Ryo'
+  spec.summary  = 'chimay is mruby script runner with consul event.'
+  spec.homepage = 'https://github.com/takaishi/chimay'
+  spec.bins     = ['chimay']
 
   spec.add_dependency 'mruby-print',   :core => 'mruby-print'
   spec.add_dependency 'mruby-eval',    :core => 'mruby-eval'
