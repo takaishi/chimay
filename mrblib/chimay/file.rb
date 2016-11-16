@@ -3,7 +3,8 @@ class File
     def run(uri)
       query = {}
       parser = HTTP::Parser.new
-      parser.parse_url(uri).query.split('&').each do |q|
+      parsed = parser.parse_url(uri)
+      parsed.query.split('&').each do |q|
         a = q.split('=')
         query[a[0].to_sym] = a[1]
       end

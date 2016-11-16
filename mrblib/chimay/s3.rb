@@ -3,15 +3,16 @@ class S3
     def run(uri)
       query = {}
       parser = HTTP::Parser.new
-      parser.parse_url(uri).query.split('&').each do |q|
+      parsed = parser.parse_url(uri)
+      parsed.query.split('&').each do |q|
         a = q.split('=')
         query[a[0].to_sym] = a[1]
       end
 
       m = OnigRegexp.new("s3://([^/]+[-a-zA-Z0-9]+)(/[^/]+[-a-zA-Z0-9./]+)").match(uri)
 
-       AWSAccessKeyId = aws_access_key_id
-       AWSSecretAccessKey = aws_secret_access_key
+      AWSAccessKeyId = aws_access_key_id
+      AWSSecretAccessKey = aws_secret_access_key
       AWSBucket = m[1]
 
       aws = AWS::S3.new(AWSAccessKeyId, AWSSecretAccessKey)
