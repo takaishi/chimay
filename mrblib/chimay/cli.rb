@@ -4,7 +4,7 @@ class CLI
       if argv[1] == "version"
         puts "v#{Chimay::VERSION}"
       else
-        p parsed = parse_stdin(STDIN.read)
+        parsed = parse_stdin(STDIN.read.chomp)
 
         case parsed[:type]
         when :http
@@ -36,6 +36,8 @@ class CLI
       {:type => :s3, :payload => payload}
     elsif file?(payload)
       {:type => :file, :payload => payload}
+    else
+      raise "could not match uri: #{payload}"
     end
   end
 

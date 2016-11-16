@@ -1,6 +1,13 @@
 class S3
   class << self
     def run(uri)
+      query = {}
+      parser = HTTP::Parser.new
+      parser.parse_url(uri).query.split('&').each do |q|
+        a = q.split('=')
+        query[a[0].to_sym] = a[1]
+      end
+
       m = OnigRegexp.new("s3://([^/]+[-a-zA-Z0-9]+)(/[^/]+[-a-zA-Z0-9./]+)").match(uri)
 
        AWSAccessKeyId = aws_access_key_id
@@ -11,7 +18,8 @@ class S3
       aws.set_bucket(AWSBucket)
       resp = aws.download(m[2])
       if resp.code.to_i == 200
-        eval resp.body
+        define = eval resp.body
+        define._run(query)
       else
         puts "Error code = #{resp.code}"
         puts "Error body = #{resp.body}"
