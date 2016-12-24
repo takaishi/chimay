@@ -26,7 +26,7 @@ module Chimay
     def parse_stdin(input)
       payload = if consul_event?(input)
                   command = JSON::parse(input)[0]
-                  Base64::decode(command['Payload'])
+                  PolarSSL::Base64.decode(command['Payload'])
                 else
                   input
                 end
