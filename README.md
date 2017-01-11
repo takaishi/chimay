@@ -1,6 +1,8 @@
 Chimay
 ====
 
+[![Build Status](https://travis-ci.org/takaishi/chimay.svg?branch=master)](https://travis-ci.org/takaishi/chimay)
+
 This is mruby script runner that get script from S3, http(s), or file with consul event.
 Chimay had an influence from stretcher.
 
