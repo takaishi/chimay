@@ -6,21 +6,16 @@ module Chimay
           puts "v#{Chimay::VERSION}"
         else
           parsed = parse_stdin(STDIN.read.chomp)
-
-          case parsed[:type]
-            when :http
-              Http.run(parsed[:payload])
-            when :s3
-              S3.run(parsed[:payload])
-            when :file
-              File.run(parsed[:payload])
-            else
-          end
+          client(parsed[:type], parsed[:payload]).run
         end
       rescue => e
         puts e
         puts e.backtrace
       end
+    end
+
+    def client(type, payload)
+      Chimay.const_get(type.to_s.capitalize).new(payload)
     end
 
     def parse_stdin(input)
